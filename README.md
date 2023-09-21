@@ -32,7 +32,7 @@ Current state-of-the-art methods for panoptic segmentation require an immense am
 
 ## 👩‍💻 Code
 
-We will release the code by the end of October 2023.
+We will release the code upon the acceptance of our paper.
 
 
 ## 👩‍⚖️  License
