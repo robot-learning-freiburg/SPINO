@@ -1,5 +1,5 @@
 # SPINO: Few-Shot Panoptic Segmentation With Foundation Models
-[**arXiv**](https://arxiv.org/abs/2309.10726) | [**Website**](http://spino.cs.uni-freiburg.de/)
+[**arXiv**](https://arxiv.org/abs/2309.10726) | [**Website**](http://spino.cs.uni-freiburg.de/) | [**Video**](https://www.youtube.com/watch?v=NPVp5zcNBqA)
 
 This repository is the official implementation of the paper:
 
