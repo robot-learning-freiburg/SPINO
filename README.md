@@ -5,10 +5,11 @@ This repository is the official implementation of the paper:
 
 > **Few-Shot Panoptic Segmentation With Foundation Models**
 >
-> [Markus Käppeler]()&ast;, [Kürsat Petek](http://www2.informatik.uni-freiburg.de/~petek/)&ast;, [Niclas Vödisch](https://vniclas.github.io/)&ast;, [Wolfram Burgard](https://www.utn.de/person/wolfram-burgard/), and [Abhinav Valada](https://rl.uni-freiburg.de/people/valada). <br>
+> [Markus Käppeler](https://rl.uni-freiburg.de/people/kaeppelm)&ast;, [Kürsat Petek](http://www2.informatik.uni-freiburg.de/~petek/)&ast;, [Niclas Vödisch](https://vniclas.github.io/)&ast;, [Wolfram Burgard](https://www.utn.de/person/wolfram-burgard/), and [Abhinav Valada](https://rl.uni-freiburg.de/people/valada). <br>
 > &ast;Equal contribution. <br> 
 > 
-> *arXiv preprint arXiv:2309.10726*, 2023
+> *arXiv preprint arXiv:2309.10726*, 2023 <br>
+> (Accepted for *IEEE International Conference on Robotics and Automation (ICRA)*, 2024.)
 
 <p align="center">
   <img src="./assets/spino_overview.png" alt="Overview of SPINO approach" width="800" />
@@ -46,9 +47,9 @@ For any commercial purpose, please contact the authors.
 This work was funded by the German Research Foundation (DFG) Emmy Noether Program grant No 468878300 and the European Union’s Horizon 2020 research and innovation program grant No 871449-OpenDR.
 <br><br>
 <p float="left">
-  <a href="https://www.dfg.de/en/research_funding/programmes/individual/emmy_noether/index.html"><img src="./assets/dfg_logo.png" alt="drawing" height="100"/></a>
+  <a href="https://www.dfg.de/en/research_funding/programmes/individual/emmy_noether/index.html"><img src="./assets/dfg_logo.png" alt="DFG logo" height="100"/></a>
   &nbsp;
   &nbsp;
   &nbsp;
-  <a href="https://opendr.eu/"><img src="./assets/opendr_logo.png" alt="drawing" height="100"/></a>
+  <a href="https://opendr.eu/"><img src="./assets/opendr_logo.png" alt="OpenDR logo" height="100"/></a>
 </p>
