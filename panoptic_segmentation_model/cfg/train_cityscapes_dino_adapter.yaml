@@ -1,0 +1,47 @@
+model:
+    make_semantic: True
+    make_instance: True
+    backbone_panoptic:
+        name: 'dino-vit-adapter'
+        dino_vit_adapter:
+            params:
+              interaction_indexes: [[0, 2], [3, 5], [6, 8], [9, 11]]
+
+train:
+    nof_epochs: 600
+    batch_size_per_gpu: 4
+    nof_workers_per_gpu: 5
+    optimizer:
+        learning_rate: 0.0001
+    scheduler:
+        type: 'StepLR'
+        step_lr:
+            step_size: 500
+
+val:
+    batch_size_per_gpu: 2
+    nof_workers_per_gpu: 5
+
+dataset:
+    name: 'cityscapes'
+    path: '' # SET THE PATH TO THE CITYSCAPES DATASET
+    label_mode: 'cityscapes-19' # 'cityscapes', 'cityscapes-27'
+    train_split: 'train' # 'train_extra'
+    feed_img_size: [448, 896]
+#    indices_gt: [12, 324, 450, 608, 742, 768, 798, 836, 1300, 2892]
+
+semantics:
+    class_weights: [1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.]
+    top_k: 0.2
+
+losses:
+    weights:
+        semantic: 1.0
+        center: 20.0
+        offset: .1
+
+visualization:
+    scale: .5
+
+logging:
+    val_epoch_interval: 1

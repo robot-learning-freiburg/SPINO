@@ -1,0 +1,55 @@
+model:
+    make_semantic: True
+    make_instance: True
+    backbone_panoptic:
+        name: 'dino-vit'
+        dino_vit:
+            params:
+                type: 'vitb14'
+                frozen: True
+                drop_path_rate: 0.0
+
+
+train:
+    nof_epochs: 40
+    batch_size_per_gpu: 12
+    nof_workers_per_gpu: 5
+    optimizer:
+        learning_rate: 0.0001
+    scheduler:
+        type: 'StepLR'
+        step_lr:
+            step_size: 15
+
+val:
+    batch_size_per_gpu: 2
+    nof_workers_per_gpu: 5
+
+dataset:
+    name: 'kitti_360'
+    path: '' # SET THE PATH TO THE KITTI-360 DATASET
+    small_instance_area_full_res: 1034  # computed based on Cityscapes resolution
+    label_mode: 'kitti-360-14'
+    feed_img_size: [378, 1400]
+    train_split: 'sequence'
+    train_sequences: ['00', '02', '03', '04', '05', '06', '07', '09']
+    val_split: 'sequence'
+    val_sequences: ['10']
+#    remove_classes: [9, 14, 16]
+#    indices_gt: []
+
+semantics:
+    class_weights: [1., 1., 1., 1., 1., 1., 1., 1., 1., 100., 100., 1., 1., 1.]
+    top_k: 0.2
+
+losses:
+    weights:
+        semantic: 1.0
+        center: 20.0
+        offset: .1
+
+visualization:
+    scale: .5
+
+logging:
+    val_epoch_interval: 1

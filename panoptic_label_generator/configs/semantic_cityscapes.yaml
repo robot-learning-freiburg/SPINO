@@ -1,0 +1,89 @@
+# pytorch_lightning==1.8.6
+seed_everything: 0
+
+trainer:
+  max_epochs: 50
+  accelerator: gpu
+  strategy: ddp_find_unused_parameters_false
+  sync_batchnorm: True
+  logger: False
+  callbacks:
+    - class_path: pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint
+      init_args:
+        dirpath: "checkpoints/"
+        filename: "semantic_cityscapes"
+        every_n_epochs: 10
+
+model:
+  dinov2_vit_model: "vitb14"
+  num_classes: ${data.init_args.num_classes}
+  train_output_size: ${data_params.image_size_input}
+  upsample_factor: 14.0
+  head: "mlp"
+  ignore_index: 255
+  top_k_percent_pixels: 0.2
+  test_output_size: ${data_params.image_size_original}
+  test_multi_scales: [1, 2, 3]
+  test_plot: False
+
+data:
+  class_path: datasets.cityscapes.CityscapesDataModule
+  init_args:
+    cfg_dataset:
+      name: "cityscapes"
+      path: "" # SET THE PATH TO THE CITYSCAPES DATASET
+      feed_img_size: ${data_params.image_size_original}
+      offsets: [0]
+      remove_classes: []
+    num_classes: 19
+    batch_size: 1
+    num_workers: 1
+    transform_train:
+      - class_path: utils.transforms.ToTensor
+      - class_path: utils.transforms.RandomHorizontalFlip
+      - class_path: utils.transforms.RandomResizedCrop
+        init_args:
+          size: ${data_params.image_size_input}
+          scale: [0.2, 1.0]
+      - class_path: utils.transforms.ColorJitter
+        init_args:
+          brightness: 0.2
+          contrast: 0.2
+          saturation: 0.2
+          hue: 0.2
+      - class_path: utils.transforms.MaskPostProcess
+      - class_path: utils.transforms.ImageNormalize
+        init_args:
+          mean: ${data_params.image_mean}
+          std: ${data_params.image_std}
+    transform_test:
+      - class_path: utils.transforms.ToTensor
+      - class_path: utils.transforms.Resize
+        init_args:
+          size: ${data_params.image_size_input}
+      - class_path: utils.transforms.MaskPostProcess
+      - class_path: utils.transforms.ImageNormalize
+        init_args:
+          mean: ${data_params.image_mean}
+          std: ${data_params.image_std}
+    label_mode: "cityscapes_19"
+    train_sample_indices: [12, 324, 450, 608, 742, 768, 798, 836, 1300, 2892]
+    test_sample_indices: null
+
+data_params:
+  image_size_original: [1024, 2048]
+  image_size_input: [1008, 2016]
+  image_mean: [0.485, 0.456, 0.406]
+  image_std: [0.229, 0.224, 0.225]
+
+ckpt_path: null
+
+optimizer:
+  class_path: torch.optim.Adam
+  init_args:
+    lr: 0.001
+
+lr_scheduler:
+  class_path: torch.optim.lr_scheduler.CosineAnnealingLR
+  init_args:
+    T_max: ${trainer.max_epochs}

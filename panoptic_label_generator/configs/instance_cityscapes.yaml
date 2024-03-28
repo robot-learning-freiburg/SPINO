@@ -1,0 +1,80 @@
+# pytorch_lightning==1.8.6
+seed_everything: 0
+
+trainer:
+  accelerator: gpu
+  strategy: ddp_find_unused_parameters_false
+  logger: False
+
+model:
+  semantic_model:
+    class_path: semantic_fine_tuning.SemanticFineTuner
+    init_args:
+      dinov2_vit_model: "vitb14"
+      num_classes: ${data.init_args.num_classes}
+      train_output_size: ${data_params.image_size_input}
+      upsample_factor: 14.0
+      head: "mlp"
+      ignore_index: 255
+      top_k_percent_pixels: 0.2
+      test_output_size: ${data_params.image_size_original}
+      test_multi_scales: [ 1, 2, 3 ]
+      test_plot: False
+      test_save_dir: null
+  semantic_model_ckpt: "checkpoints/semantic_cityscapes.ckpt"
+  boundary_model:
+    class_path: boundary_fine_tuning.BoundaryFineTuner
+    init_args:
+      dinov2_vit_model: "vitb14"
+      mode: "direct"
+      upsample_factor: 4.0
+      head: "mlp"
+      neighbor_radius: 1.5
+      threshold_boundary: 0.93
+      num_boundary_neighbors: 1
+      test_output_size: ${data_params.image_size_original}
+      test_multi_scales: [3, 4, 5]
+      test_plot: False
+  boundary_model_ckpt: "checkpoints/boundary_cityscapes.ckpt"
+  structure_connectivity: [[0, 1, 0], [1, 1, 1], [0, 1, 0]]
+  instance_min_pixel: 500
+  erosion_structure: [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
+  erosion_iterations: 0
+  output_size: ${data_params.image_size_original}
+  test_plot: False
+  test_save_dir: "results/cityscapes"
+  test_save_vis: True
+
+data:
+  class_path: datasets.cityscapes.CityscapesDataModule
+  init_args:
+    cfg_dataset:
+      name: "cityscapes"
+      path: "" # SET THE PATH TO THE CITYSCAPES DATASET
+      feed_img_size: ${data_params.image_size_original}
+      offsets: [0]
+      remove_classes: []
+    num_classes: 19
+    batch_size: 1
+    num_workers: 2
+    transform_train: []
+    transform_test:
+      - class_path: utils.transforms.ToTensor
+      - class_path: utils.transforms.Resize
+        init_args:
+          size: ${data_params.image_size_input}
+      - class_path: utils.transforms.MaskPostProcess
+      - class_path: utils.transforms.ImageNormalize
+        init_args:
+          mean: ${data_params.image_mean}
+          std: ${data_params.image_std}
+    label_mode: "cityscapes_19"
+    train_sample_indices: []
+    test_sample_indices: null
+    test_set: "val"
+
+data_params:
+  image_size_original: [1024, 2048]
+  image_size_input: [1008, 2016]
+  image_mean: [0.485, 0.456, 0.406]
+  image_std: [0.229, 0.224, 0.225]
