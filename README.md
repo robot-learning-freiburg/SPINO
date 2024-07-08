@@ -8,8 +8,7 @@ This repository is the official implementation of the paper:
 > [Markus Käppeler](https://rl.uni-freiburg.de/people/kaeppelm)&ast;, [Kürsat Petek](http://www2.informatik.uni-freiburg.de/~petek/)&ast;, [Niclas Vödisch](https://vniclas.github.io/)&ast;, [Wolfram Burgard](https://www.utn.de/person/wolfram-burgard/), and [Abhinav Valada](https://rl.uni-freiburg.de/people/valada). <br>
 > &ast;Equal contribution. <br>
 >
-> *arXiv preprint arXiv:2309.10726*, 2023 <br>
-> (Accepted for *IEEE International Conference on Robotics and Automation (ICRA)*, 2024.)
+> *IEEE International Conference on Robotics and Automation (ICRA)*, 2024
 
 <p align="center">
   <img src="./assets/spino_overview.png" alt="Overview of SPINO approach" width="800" />
@@ -17,11 +16,12 @@ This repository is the official implementation of the paper:
 
 If you find our work useful, please consider citing our paper:
 ```
-@article{kaeppeler2023spino,
-  title={Few-Shot Panoptic Segmentation With Foundation Models},
-  author={Käppeler, Markus and Petek, Kürsat and Vödisch, Niclas and Burgard, Wolfram and Valada, Abhinav},
-  journal={arXiv preprint arXiv:2309.10726},
-  year={2023}
+@inproceedings{kaeppeler2024spino,
+    title={Few-Shot Panoptic Segmentation With Foundation Models},
+    author={Käppeler, Markus and Petek, Kürsat and Vödisch, Niclas and Burgard, Wolfram and Valada, Abhinav},
+    booktitle={IEEE International Conference on Robotics and Automation (ICRA)},
+    year={2024},
+    pages={7718-7724}
 }
 ```
 
