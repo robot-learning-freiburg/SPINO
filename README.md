@@ -25,7 +25,9 @@ If you find our work useful, please consider citing our paper:
 }
 ```
 
-**Make sure to also check out our follow-up work on this topic:** [**PASTEL**](https://github.com/robot-learning-freiburg/PASTEL).
+**Make sure to also check out our follow-up works on this topic:**
+- [**PASTEL**](https://github.com/robot-learning-freiburg/PASTEL) (vision)
+- [**L3PS**](https://github.com/robot-learning-freiburg/L3PS) (LiDAR)
 
 
 ## 📔 Abstract
@@ -65,8 +67,8 @@ This script will perform the following steps:
 We also support the [KITTI-360](#kitti-360) dataset. To generate pseudo-labels for KITTI-360, please adapt the corresponding configuration files.
 
 Instead of training the modules from scratch, you can also use the pretrained weights provided at these links:
-- Cityscapes: https://drive.google.com/file/d/1FjJYpkEO9enpsahevD8PMn3nP_O0sNnT/view?usp=sharing
-- KITTI-360: https://drive.google.com/file/d/1Eod444VoRLKw6dOeDSLuvfUQlJ5FAwM_/view?usp=sharing
+- Cityscapes: https://spino.cs.uni-freiburg.de/downloads/cityscapes.zip
+- KITTI-360: https://spino.cs.uni-freiburg.de/downloads/kitti360.zip
 
 #### 🧠 Panoptic segmentation model
 
